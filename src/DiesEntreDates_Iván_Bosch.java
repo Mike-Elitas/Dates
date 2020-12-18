@@ -16,6 +16,7 @@ public class DiesEntreDates_Iván_Bosch extends CalcularDiesEntreDates{
     int diesNumAnysComplets;
     boolean anyDeTraspas;
 
+    //Setting up each month's days
     @Override
     protected int diesMes(int mes) {
         switch (mes) {
@@ -32,18 +33,21 @@ public class DiesEntreDates_Iván_Bosch extends CalcularDiesEntreDates{
         return this.diesMes;
     }
 
+    //Discounts the passed days form the actual month.
     @Override
     protected int diesMesInicial(DataXS dataXS) {
         this.diesMesInicial = diesMes(dataXS.mes) - dataXS.dia;
         return this.diesMesInicial;
     }
 
+    //Sets up the days from the final month
     @Override
     protected int diesMesDesti(DataXS dataXS) {
         this.diesMesDesti = dataXS.dia;
         return this.diesMesDesti;
     }
 
+    //Calculates the remaining days of the year from the initial month
     @Override
     protected int diesResteAnyInicial(DataXS datainicial) {
         datainicial.mes++;
@@ -54,6 +58,7 @@ public class DiesEntreDates_Iván_Bosch extends CalcularDiesEntreDates{
         return this.diesResteAnyInicial;
     }
 
+    //Calculates the remaining days until the final month
     @Override
     protected int diesResteAnyDesti(DataXS datadesti) {
         datadesti.mes--;
@@ -64,12 +69,14 @@ public class DiesEntreDates_Iván_Bosch extends CalcularDiesEntreDates{
         return this.diesResteAnyDesti;
     }
 
+    //Calculates the days of the whole years
     @Override
     protected int diesNumAnysComplets(DataXS datainicial, DataXS datadesti) {
         this.diesNumAnysComplets = ((datadesti.any - datainicial.any) -1) * 365;
         return this.diesNumAnysComplets;
     }
 
+    //Adds up the additional day in case of a leap year
     @Override
     protected int numDiesPerAnysdeTraspas(DataXS datainicial, DataXS datadesti) {
         int diaTraspas = 0;
@@ -84,6 +91,7 @@ public class DiesEntreDates_Iván_Bosch extends CalcularDiesEntreDates{
         return diaTraspas;
     }
 
+    //Checks for leap years
     @Override
     protected boolean anyDeTraspas(int any) {
         if (any % 400 == 0 || ((any % 4 == 0) && !(any % 100 == 0))){
